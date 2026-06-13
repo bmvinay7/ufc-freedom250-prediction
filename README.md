@@ -103,7 +103,7 @@ drive the picks; age is intentionally weighted below current form.
 
 ## 🙏 Data & credits
 
-- Fight statistics & scorecards: [UFC-DataLab](https://github.com/) and
+- Fight statistics & scorecards: [UFC-DataLab](https://github.com/komaksym/UFC-DataLab.git) and
   [ufcstats.com](http://www.ufcstats.com/).
 - Card details: ufcstats.com / Wikipedia.
 - Method inspired by a World-Cup-style prediction pipeline (Elo → features → model →
