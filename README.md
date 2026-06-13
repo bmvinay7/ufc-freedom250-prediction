@@ -6,8 +6,7 @@ June 14, 2026, South Lawn of the White House, Washington D.C.
 Chess-style **Elo** + leakage-safe career features → a single **XGBoost** model →
 method & round models → **10,000-simulation Monte Carlo** → an interactive dashboard.
 
-**▶ Live dashboard:** enable GitHub Pages (Settings → Pages → Branch `main`, folder `/docs`)
-and it serves at `https://<your-username>.github.io/ufc-freedom250/`.
+**▶ Live dashboard:** (Click)[https://bmvinay7.github.io/ufc-freedom250-prediction/]
 
 ![UFC Freedom 250 predictions dashboard](docs/preview.png)
 
