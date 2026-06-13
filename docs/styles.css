@@ -110,11 +110,15 @@ main{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:30p
 .prob{padding:6px 18px 18px;}
 .prob-bar{position:relative;height:34px;border-radius:3px;overflow:hidden;display:flex;
   border:1px solid var(--line);background:#0c0f14;}
-.prob-red,.prob-blue{height:100%;display:flex;align-items:center;width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1);}
+/* widths are set inline (= the probability); max-width reveal animates the
+   fill in via pure CSS, so bars are always correct even if JS/animation is off */
+.prob-red,.prob-blue{height:100%;display:flex;align-items:center;flex:0 0 auto;
+  animation:reveal 1.1s cubic-bezier(.2,.7,.2,1) both;}
 .prob-red{background:linear-gradient(90deg,var(--red-deep),var(--red));justify-content:flex-start;padding-left:12px;}
 .prob-blue{background:linear-gradient(90deg,var(--blue),var(--blue-deep));justify-content:flex-end;padding-right:12px;}
 .prob-red span,.prob-blue span{font-family:"Anton";font-size:1.05rem;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5);white-space:nowrap;}
 .prob-mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--gold);transform:translateX(-50%);opacity:.65;z-index:3;}
+@keyframes reveal{from{max-width:0}to{max-width:100%}}
 
 /* lower detail row: method + round + model agreement */
 .detail{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px;padding:0 18px 20px;}
@@ -124,7 +128,7 @@ main{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:30p
 .method-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-family:"Oswald";font-size:.74rem;}
 .method-row .ml{width:74px;color:var(--bone-dim);}
 .method-track{flex:1;height:7px;background:#0c0f14;border-radius:4px;overflow:hidden;}
-.method-fill{height:100%;width:0;border-radius:4px;transition:width 1s ease .3s;}
+.method-fill{display:block;height:100%;border-radius:4px;animation:reveal .9s ease .25s both;}
 .method-fill.ko{background:linear-gradient(90deg,#e0353b,#ff7a3d)}
 .method-fill.sub{background:linear-gradient(90deg,#7b61ff,#3a7bf0)}
 .method-fill.dec{background:linear-gradient(90deg,#e6b450,#c9952f)}
@@ -155,7 +159,7 @@ main{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:30p
 .hbar{display:grid;grid-template-columns:40px 1fr 50px;align-items:center;gap:10px;}
 .hbar .hk{font-family:"Oswald";font-size:.72rem;color:var(--bone-dim);}
 .hbar .htrack{height:18px;background:#0c0f14;border-radius:3px;overflow:hidden;}
-.hbar .hfill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--blue-deep),var(--blue));transition:width 1s cubic-bezier(.2,.7,.2,1);}
+.hbar .hfill{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue-deep),var(--blue));animation:reveal .9s cubic-bezier(.2,.7,.2,1) .1s both;}
 .hbar.peak .hfill{background:linear-gradient(90deg,var(--gold-deep),var(--gold));}
 .hbar .hv{font-family:"Oswald";font-size:.72rem;color:var(--bone);text-align:right;}
 

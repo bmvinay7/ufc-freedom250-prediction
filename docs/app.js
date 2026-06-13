@@ -54,9 +54,9 @@
       </div>
       <div class="prob">
         <div class="prob-bar">
-          <div class="prob-red" data-w="${f.p_red * 100}"><span>${pct(f.p_red)}</span></div>
+          <div class="prob-red" style="width:${f.p_red * 100}%"><span>${pct(f.p_red)}</span></div>
           <div class="prob-mid"></div>
-          <div class="prob-blue" data-w="${f.p_blue * 100}"><span>${pct(f.p_blue)}</span></div>
+          <div class="prob-blue" style="width:${f.p_blue * 100}%"><span>${pct(f.p_blue)}</span></div>
         </div>
       </div>
       <div class="detail">
@@ -65,7 +65,7 @@
           ${methods.map(([lab, v, c]) => `
             <div class="method-row">
               <span class="ml">${lab}</span>
-              <span class="method-track"><span class="method-fill ${c}" data-w="${v * 100}"></span></span>
+              <span class="method-track"><span class="method-fill ${c}" style="width:${v * 100}%"></span></span>
               <span class="mv">${Math.round(v * 100)}%</span>
             </div>`).join("")}
         </div>
@@ -131,7 +131,7 @@
   document.getElementById("histo").innerHTML = probDist.map((v, j) => `
     <div class="hbar ${j === peak ? "peak" : ""}">
       <span class="hk">${j}/${k}</span>
-      <span class="htrack"><span class="hfill" data-w="${(v / maxv) * 100}"></span></span>
+      <span class="htrack"><span class="hfill" style="width:${(v / maxv) * 100}%"></span></span>
       <span class="hv">${pct(v)}</span>
     </div>`).join("");
   document.getElementById("histo-note").textContent =
@@ -158,11 +158,5 @@
         <div class="combo-win">${chips}</div>
       </div>`;
   }).join("");
-
-  // ---- animate bars ----
-  requestAnimationFrame(() => setTimeout(() => {
-    document.querySelectorAll(".prob-red,.prob-blue,.method-fill,.hfill").forEach((b) => {
-      b.style.width = b.dataset.w + "%";
-    });
-  }, 200));
+  // bar widths are set inline above; the fill-in animation is pure CSS (see styles.css)
 })();
