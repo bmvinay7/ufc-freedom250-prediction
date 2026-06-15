@@ -94,6 +94,19 @@ def main():
         fav_is_red = pr >= 0.5
         fav_prob = pr if fav_is_red else 1 - pr
         elo_r, elo_b = round(elo.get(red, 1500), 1), round(elo.get(blue, 1500), 1)
+
+        # actual result (if the event has happened)
+        res = CARD.RESULTS.get(red)
+        actual = None
+        if res:
+            win_key = res["winner"]
+            win_corner = "red" if win_key == red else "blue"
+            actual = {
+                "winner": CARD.DISPLAY[win_key], "winner_corner": win_corner,
+                "method": res["method"], "round": res["round"], "time": res["time"],
+                "correct": win_corner == ("red" if fav_is_red else "blue"),
+            }
+
         fights_out.append({
             "red": CARD.DISPLAY[red], "blue": CARD.DISPLAY[blue],
             "weight_class": wc, "scheduled_rounds": rounds,
@@ -108,7 +121,15 @@ def main():
             "round_probs": [round(x, 4) for x in rd],
             "likely_method": max(mp, key=mp.get),
             "likely_round": int(np.argmax(rd) + 1),
+            "actual": actual,
         })
+
+    # card-level results summary (if the event has happened)
+    completed = [f for f in fights_out if f["actual"]]
+    results_summary = None
+    if completed:
+        correct = sum(1 for f in completed if f["actual"]["correct"])
+        results_summary = {"event_complete": True, "correct": correct, "total": len(completed)}
 
     out = {"event": CARD.EVENT,
            "model": {"name": "XGBoost",
@@ -116,17 +137,21 @@ def main():
                      "test_logloss": meta["metrics"]["logloss"],
                      "baseline_acc": meta["baseline_acc"]},
            "n_sims": 10000,
+           "results": results_summary,
            "fights": fights_out}
     with open(OUT / "predictions.json", "w") as fh:
         json.dump(out, fh, indent=2)
 
-    print(f"{'Fight':<34}{'Favorite':<18}{'P(win)':>7}  Outcome")
-    print("-" * 80)
+    print(f"{'Fight':<32}{'Pick':<16}{'P':>6}  {'Actual':<16} Hit")
+    print("-" * 78)
     for f in fights_out:
-        outcome = (f"Decision ({f['scheduled_rounds']} rds)" if f["likely_method"] == "Decision"
-                   else f"{f['likely_method']} R{f['likely_round']}")
-        print(f"{f['red']+' vs '+f['blue']:<34}{f['favorite']:<18}{f['fav_prob']*100:>6.1f}%  {outcome}")
-    print(f"\n-> {OUT/'predictions.json'}")
+        a = f["actual"]
+        act = f"{a['winner']} {a['method']} R{a['round']}" if a else "—"
+        hit = ("✓" if a["correct"] else "✗") if a else ""
+        print(f"{f['red']+' vs '+f['blue']:<32}{f['favorite']:<16}{f['fav_prob']*100:>5.0f}%  {act:<16} {hit}")
+    if results_summary:
+        print(f"\nMODEL RESULT: {results_summary['correct']}/{results_summary['total']} winners correct")
+    print(f"-> {OUT/'predictions.json'}")
 
 
 if __name__ == "__main__":

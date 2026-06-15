@@ -13,6 +13,11 @@
     "baseline_acc": 0.5548539857932123
   },
   "n_sims": 10000,
+  "results": {
+    "event_complete": true,
+    "correct": 6,
+    "total": 7
+  },
   "fights": [
     {
       "red": "Ilia Topuria",
@@ -42,7 +47,15 @@
         0.0256
       ],
       "likely_method": "KO/TKO",
-      "likely_round": 1
+      "likely_round": 1,
+      "actual": {
+        "winner": "Justin Gaethje",
+        "winner_corner": "blue",
+        "method": "KO/TKO",
+        "round": 4,
+        "time": "5:00",
+        "correct": false
+      }
     },
     {
       "red": "Alex Pereira",
@@ -72,7 +85,15 @@
         0.0746
       ],
       "likely_method": "Decision",
-      "likely_round": 2
+      "likely_round": 2,
+      "actual": {
+        "winner": "Ciryl Gane",
+        "winner_corner": "blue",
+        "method": "KO/TKO",
+        "round": 2,
+        "time": "1:27",
+        "correct": true
+      }
     },
     {
       "red": "Sean O'Malley",
@@ -100,7 +121,15 @@
         0.2458
       ],
       "likely_method": "KO/TKO",
-      "likely_round": 1
+      "likely_round": 1,
+      "actual": {
+        "winner": "Sean O'Malley",
+        "winner_corner": "red",
+        "method": "KO/TKO",
+        "round": 2,
+        "time": "4:02",
+        "correct": true
+      }
     },
     {
       "red": "Josh Hokit",
@@ -128,7 +157,15 @@
         0.2362
       ],
       "likely_method": "KO/TKO",
-      "likely_round": 1
+      "likely_round": 1,
+      "actual": {
+        "winner": "Josh Hokit",
+        "winner_corner": "red",
+        "method": "KO/TKO",
+        "round": 2,
+        "time": "4:09",
+        "correct": true
+      }
     },
     {
       "red": "Maur\u00edcio Ruffy",
@@ -156,7 +193,15 @@
         0.1482
       ],
       "likely_method": "Decision",
-      "likely_round": 1
+      "likely_round": 1,
+      "actual": {
+        "winner": "Maur\u00edcio Ruffy",
+        "winner_corner": "red",
+        "method": "KO/TKO",
+        "round": 1,
+        "time": "4:29",
+        "correct": true
+      }
     },
     {
       "red": "Bo Nickal",
@@ -184,7 +229,15 @@
         0.1482
       ],
       "likely_method": "Decision",
-      "likely_round": 1
+      "likely_round": 1,
+      "actual": {
+        "winner": "Bo Nickal",
+        "winner_corner": "red",
+        "method": "KO/TKO",
+        "round": 1,
+        "time": "4:34",
+        "correct": true
+      }
     },
     {
       "red": "Diego Lopes",
@@ -212,95 +265,15 @@
         0.1454
       ],
       "likely_method": "Decision",
-      "likely_round": 1
-    }
-  ],
-  "simulation": {
-    "n_sims": 10000,
-    "fav_wins_distribution": {
-      "0": 0.0001,
-      "1": 0.0042,
-      "2": 0.0233,
-      "3": 0.1019,
-      "4": 0.2381,
-      "5": 0.3246,
-      "6": 0.2387,
-      "7": 0.0691
-    },
-    "expected_favorites_correct": 4.848,
-    "favorites_correct_95ci": [
-      2,
-      7
-    ],
-    "all_chalk_prob": 0.0691,
-    "all_chalk_parlay_decimal_odds": 14.2,
-    "expected_upsets": 2.152,
-    "most_likely_outcomes": [
-      {
-        "winners": [
-          "Ilia Topuria",
-          "Ciryl Gane",
-          "Sean O'Malley",
-          "Josh Hokit",
-          "Maur\u00edcio Ruffy",
-          "Bo Nickal",
-          "Diego Lopes"
-        ],
-        "n_upsets": 0,
-        "prob": 0.0691
-      },
-      {
-        "winners": [
-          "Ilia Topuria",
-          "Alex Pereira",
-          "Sean O'Malley",
-          "Josh Hokit",
-          "Maur\u00edcio Ruffy",
-          "Bo Nickal",
-          "Diego Lopes"
-        ],
-        "n_upsets": 1,
-        "prob": 0.0671
-      },
-      {
-        "winners": [
-          "Ilia Topuria",
-          "Ciryl Gane",
-          "Sean O'Malley",
-          "Josh Hokit",
-          "Maur\u00edcio Ruffy",
-          "Bo Nickal",
-          "Steve Garcia"
-        ],
-        "n_upsets": 1,
-        "prob": 0.0537
-      },
-      {
-        "winners": [
-          "Ilia Topuria",
-          "Alex Pereira",
-          "Sean O'Malley",
-          "Josh Hokit",
-          "Maur\u00edcio Ruffy",
-          "Bo Nickal",
-          "Steve Garcia"
-        ],
-        "n_upsets": 2,
-        "prob": 0.0516
-      },
-      {
-        "winners": [
-          "Justin Gaethje",
-          "Ciryl Gane",
-          "Sean O'Malley",
-          "Josh Hokit",
-          "Maur\u00edcio Ruffy",
-          "Bo Nickal",
-          "Diego Lopes"
-        ],
-        "n_upsets": 1,
-        "prob": 0.0378
+      "likely_round": 1,
+      "actual": {
+        "winner": "Diego Lopes",
+        "winner_corner": "red",
+        "method": "KO/TKO",
+        "round": 2,
+        "time": "2:42",
+        "correct": true
       }
-    ]
-  }
+    }
+  ]
 }

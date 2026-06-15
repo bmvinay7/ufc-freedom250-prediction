@@ -42,6 +42,19 @@ FIGHTS = [
     ("DIEGO LOPES",   "STEVE GARCIA",     "Featherweight", 3, "Featured",    None),
 ]
 
+# Actual results — event completed June 14, 2026 (source: ufcstats.com).
+# Keyed by red-corner fighter; "winner" is the fighter KEY that won.
+# Set to {} before the event to run in prediction-only mode.
+RESULTS = {
+    "ILIA TOPURIA":   {"winner": "JUSTIN GAETHJE", "method": "KO/TKO", "round": 4, "time": "5:00"},
+    "ALEX PEREIRA":   {"winner": "CIRYL GANE",      "method": "KO/TKO", "round": 2, "time": "1:27"},
+    "SEAN O'MALLEY":  {"winner": "SEAN O'MALLEY",   "method": "KO/TKO", "round": 2, "time": "4:02"},
+    "JOSH HOKIT":     {"winner": "JOSH HOKIT",      "method": "KO/TKO", "round": 2, "time": "4:09"},
+    "MAURICIO RUFFY": {"winner": "MAURICIO RUFFY",  "method": "KO/TKO", "round": 1, "time": "4:29"},
+    "BO NICKAL":      {"winner": "BO NICKAL",       "method": "KO/TKO", "round": 1, "time": "4:34"},
+    "DIEGO LOPES":    {"winner": "DIEGO LOPES",     "method": "KO/TKO", "round": 2, "time": "2:42"},
+}
+
 # display names (proper casing) for the frontend
 DISPLAY = {
     "ILIA TOPURIA": "Ilia Topuria", "JUSTIN GAETHJE": "Justin Gaethje",

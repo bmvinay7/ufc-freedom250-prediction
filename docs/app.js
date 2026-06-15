@@ -17,6 +17,23 @@
   document.getElementById("badge-acc").textContent = pct(D.model.test_accuracy);
   document.getElementById("badge-sims").textContent = (N / 1000) + "K";
 
+  // ---- results banner (only after the event) ----
+  if (D.results && D.results.event_complete) {
+    const r = D.results;
+    const missed = D.fights.filter((f) => f.actual && !f.actual.correct);
+    const missTxt = missed.length
+      ? `Only ${missed.map((f) => f.actual.winner + " over " + f.favorite).join(", ")} bucked the model.`
+      : "A clean sweep — every pick landed.";
+    const rb = document.getElementById("result-banner");
+    rb.hidden = false;
+    rb.innerHTML = `
+      <span class="rb-score">${r.correct}<span class="rb-of">/${r.total}</span></span>
+      <div class="rb-body">
+        <span class="rb-head">Winners called correctly</span>
+        <span class="rb-sub">${missTxt}</span>
+      </div>`;
+  }
+
   // ---- fights ----
   const wrap = document.getElementById("fights");
   D.fights.forEach((f, i) => {
@@ -28,8 +45,12 @@
       ["DECISION", mp["Decision"] || 0, "dec"],
     ];
     const favLast = f.favorite.split(" ").slice(-1)[0];
+    const a = f.actual;                       // actual result (null pre-event)
+    const redWon = a && a.winner_corner === "red";
+    const blueWon = a && a.winner_corner === "blue";
+    const loser = a ? (a.winner === f.red ? f.blue : f.red) : null;
     const el = document.createElement("article");
-    el.className = "fight" + (f.title ? " title-fight" : "");
+    el.className = "fight" + (f.title ? " title-fight" : "") + (a ? (a.correct ? " hit" : " miss") : "");
     el.style.animationDelay = (i * 90) + "ms";
     el.innerHTML = `
       <div class="fight-top">
@@ -38,18 +59,20 @@
         <span class="belt">${f.title ? "★ " + f.title : ""}</span>
       </div>
       <div class="tape">
-        <div class="corner red ${redFav ? "favored" : ""}">
+        <div class="corner red ${redFav ? "favored" : ""} ${redWon ? "winner" : ""}">
           <span class="corner-tag">Red Corner</span>
           <span class="fighter-name">${f.red}</span>
           <span class="fighter-meta">Elo ${f.elo_red}</span>
           <span class="win-flag">Projected Winner</span>
+          ${redWon ? '<span class="won-badge">✓ WON</span>' : ""}
         </div>
         <div class="vs">VS</div>
-        <div class="corner blue ${redFav ? "" : "favored"}">
+        <div class="corner blue ${redFav ? "" : "favored"} ${blueWon ? "winner" : ""}">
           <span class="corner-tag">Blue Corner</span>
           <span class="fighter-name">${f.blue}</span>
           <span class="fighter-meta">Elo ${f.elo_blue}</span>
           <span class="win-flag">Projected Winner</span>
+          ${blueWon ? '<span class="won-badge">✓ WON</span>' : ""}
         </div>
       </div>
       <div class="prob">
@@ -59,6 +82,11 @@
           <div class="prob-blue" style="width:${f.p_blue * 100}%"><span>${pct(f.p_blue)}</span></div>
         </div>
       </div>
+      ${a ? `
+      <div class="result-strip ${a.correct ? "hit" : "miss"}">
+        <span class="rs-tag">${a.correct ? "✓ CORRECT PICK" : "✗ UPSET — MODEL MISSED"}</span>
+        <span class="rs-text"><strong>${a.winner}</strong> def. ${loser} · ${a.method} · R${a.round} (${a.time})</span>
+      </div>` : ""}
       <div class="detail">
         <div class="blk">
           <h4>Predicted Method</h4>
@@ -128,14 +156,16 @@
   const probDist = dist.map((c) => c / N);
   const maxv = Math.max(...probDist);
   const peak = probDist.indexOf(maxv);
+  const actualCorrect = D.results && D.results.event_complete ? D.results.correct : null;
   document.getElementById("histo").innerHTML = probDist.map((v, j) => `
-    <div class="hbar ${j === peak ? "peak" : ""}">
-      <span class="hk">${j}/${k}</span>
+    <div class="hbar ${j === peak ? "peak" : ""} ${j === actualCorrect ? "actual" : ""}">
+      <span class="hk">${j}/${k}${j === actualCorrect ? " ◄" : ""}</span>
       <span class="htrack"><span class="hfill" style="width:${(v / maxv) * 100}%"></span></span>
       <span class="hv">${pct(v)}</span>
     </div>`).join("");
-  document.getElementById("histo-note").textContent =
-    `Most likely: ${peak} of ${k} favorites win (${pct(probDist[peak])}). 95% interval ${pctile(0.025)}–${pctile(0.975)}.`;
+  document.getElementById("histo-note").innerHTML = actualCorrect !== null
+    ? `<strong>Actual: ${actualCorrect} of ${k} favorites won</strong> — the model beat its own simulated expectation of ${expFav.toFixed(1)}.`
+    : `Most likely: ${peak} of ${k} favorites win (${pct(probDist[peak])}). 95% interval ${pctile(0.025)}–${pctile(0.975)}.`;
 
   // ---- most likely combos ----
   const topMasks = Object.keys(combo).map(Number).sort((a, b) => combo[b] - combo[a]).slice(0, 4);

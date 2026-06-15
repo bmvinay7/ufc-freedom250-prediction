@@ -12,20 +12,23 @@ method & round models → **10,000-simulation Monte Carlo** → an interactive d
 
 ---
 
-## 🔮 The predictions
+## 🔮 Predictions vs. Results
 
-| Bout | Predicted winner | Win % | Confidence | Likely outcome |
-|------|------------------|:-----:|------------|----------------|
-| Lightweight 🏆 | **Ilia Topuria** | 64.8% | Lean | KO/TKO, R1 |
-| Heavyweight 🏆 | **Ciryl Gane** | 51.4% | Pick'em | Decision (5 rds) |
-| Bantamweight | **Sean O'Malley** | 78.1% | Heavy favorite | KO/TKO, R1 |
-| Heavyweight | **Josh Hokit** | 80.2% | Heavy favorite | KO/TKO, R1 |
-| Lightweight | **Maurício Ruffy** | 79.3% | Heavy favorite | Decision (3 rds) |
-| Middleweight | **Bo Nickal** | 75.0% | Heavy favorite | Decision (3 rds) |
-| Featherweight | **Diego Lopes** | 56.6% | Lean | Decision (3 rds) |
+### ✅ The model went **6 / 7** on winners — beating its own simulated expectation (~4.85 / 7).
 
-**Card outlook (10k Monte Carlo):** ~4.85 / 7 favorites expected to win · ~2 upsets ·
-full-chalk only **6.9%** (a 7-leg parlay would pay ~14×).
+| Bout | Predicted (win %) | Actual result | Hit |
+|------|-------------------|---------------|:---:|
+| Lightweight 🏆 | Ilia Topuria (64.8%) | **Justin Gaethje** — KO/TKO R4 | ❌ |
+| Heavyweight 🏆 | Ciryl Gane (51.4%) | **Ciryl Gane** — KO/TKO R2 | ✅ |
+| Bantamweight | Sean O'Malley (78.1%) | **Sean O'Malley** — KO/TKO R2 | ✅ |
+| Heavyweight | Josh Hokit (80.2%) | **Josh Hokit** — KO/TKO R2 | ✅ |
+| Lightweight | Maurício Ruffy (79.3%) | **Maurício Ruffy** — KO/TKO R1 | ✅ |
+| Middleweight | Bo Nickal (75.0%) | **Bo Nickal** — KO/TKO R1 | ✅ |
+| Featherweight | Diego Lopes (56.6%) | **Diego Lopes** — KO/TKO R2 | ✅ |
+
+The only miss was the main-event upset — **Justin Gaethje stopping Ilia Topuria** in round 4.
+Notably, **every fight on the card ended in KO/TKO**, so while the winner calls held up, the
+method model (which leaned toward decisions in three bouts) did not.
 
 > ⚠️ Analytical / entertainment use only. Not betting advice.
 
